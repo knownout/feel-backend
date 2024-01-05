@@ -1,0 +1,15 @@
+include:
+  - project: 'internal/gitlab-ci'
+    file: '/default-node20-init.yml'
+
+stages: # List of stages for jobs, and their order of execution
+  - deploy
+
+variables:
+  SYNC_DIRECTORY: ./
+
+deploy-job: # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  tags:
+    - spsu
+  extends: .use-deploy
