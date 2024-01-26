@@ -6,6 +6,8 @@ import { rootUserDataDirectory } from "@/constants"
 import authenticationRouter from "@/routers/authentication-router/authentication-router"
 import resumeRouter from "@/routers/resume-router/resume-router"
 
+const cors = require("cors")
+
 function initBackend(params: { host: string, port: number }) {
   const app = express()
 
@@ -14,6 +16,7 @@ function initBackend(params: { host: string, port: number }) {
   if (!fs.existsSync(rootUserDataDirectory)) fs.mkdirSync(rootUserDataDirectory, { recursive: true })
 
   app.use(express.json())
+  app.use(cors())
 
   app.use("/auth", authenticationRouter)
   app.use("/resume", resumeRouter)
